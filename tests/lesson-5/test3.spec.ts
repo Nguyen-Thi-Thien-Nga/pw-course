@@ -4,20 +4,28 @@
 
 import { test } from '@playwright/test';
 test('Todo page', async ({ page }) => {
-  await page.goto('https://material.playwrightvn.com/');
-  await page.locator('a[href="03-xpath-todo-list.html"]').click();
-  const newTask = await page.locator('input[id="new-task"]');
-  for (let i = 1; i <= 100; i++) {
-    await newTask.fill(`Todo ` + i);
-    await page.locator('button[id="add-task"]').click();
-    await page.waitForTimeout(100);
-  }
-
-  page.on('dialog', (dialog) => dialog.accept());
-
-  for (let i = 1; i <= 100; i++) {
-    if (i % 2 !== 0) {
-      await page.locator(`button[id="todo-${i}-delete"]`).click();
+  await test.step('Navigate to the Material Playwright Page', async () => {
+    await page.goto(' https://material.playwrightvn.com/');
+  });
+  await test.step('Click on “Bài học 3: Todo page”', async () => {
+    await page.locator('a[href="03-xpath-todo-list.html"]').click();
+  });
+  await test.step('Add 100 new todo items with the content “Todo <i>', async () => {
+    const newTask = await page.locator('input[id="new-task"]');
+    for (let i = 1; i <= 100; i++) {
+      await newTask.fill(`Todo ` + i);
+      await page.locator('button[id="add-task"]').click();
+      await page.waitForTimeout(100);
     }
-  }
+  });
+
+  await test.step('Delete odd numbered todos', async () => {
+    page.on('dialog', (dialog) => dialog.accept());
+
+    for (let i = 1; i <= 100; i++) {
+      if (i % 2 !== 0) {
+        await page.locator(`button[id="todo-${i}-delete"]`).click();
+      }
+    }
+  });
 });
