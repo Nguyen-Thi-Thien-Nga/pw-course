@@ -16,7 +16,6 @@ test('Product page', async ({ page }) => {
     const productId1 = await page.locator('button[data-product-id="1"]');
     for (let i = 1; i <= 2; i++) {
       await productId1.click();
-      await page.waitForTimeout(100);
     }
   });
 
@@ -24,7 +23,6 @@ test('Product page', async ({ page }) => {
     const productId2 = await page.locator('button[data-product-id="2"]');
     for (let i = 1; i <= 3; i++) {
       await productId2.click();
-      await page.waitForTimeout(100);
     }
   });
   await test.step('Add Sản phẩm 3: 1 sản phẩm”', async () => {

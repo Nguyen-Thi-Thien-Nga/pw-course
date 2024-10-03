@@ -11,7 +11,7 @@ test('Todo page', async ({ page }) => {
     await page.locator('a[href="03-xpath-todo-list.html"]').click();
   });
   await test.step('Add 100 new todo items with the content “Todo <i>', async () => {
-    const newTask = await page.locator('input[id="new-task"]');
+    const newTask = page.locator('input[id="new-task"]');
     for (let i = 1; i <= 100; i++) {
       await newTask.fill(`Todo ` + i);
       await page.locator('button[id="add-task"]').click();
